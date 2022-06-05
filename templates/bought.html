@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Bought
+{% endblock %}
+
+{% block main %}
+<header>
+    <div class="alert alert-primary mb-0 text-center" role="alert">Bought!</div>
+</header>
+<br>
+<div ms-auto>
+    <h4>Transaction Details</h4>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="text-start">Symbol</th>
+            <th class="text-start">Name</th>
+            <th class="text-end">Shares</th>
+            <th class="text-end">Price</th>
+            <th class="text-end">TOTAL</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td class="text-start">{{ symbol }}</td>
+            <td class="text-start">{{ name }}</td>
+            <td class="text-end">{{ shares }}</td>
+            <td class="text-end">{{ price }}</td>
+            <td class="text-end">{{ purchase_total }}</td>
+        </tr>
+
+    </tbody>
+    <tfoot>
+        <tr>
+            <td class="border-0 fw-bold text-end" colspan="4">Cash Remaining</td>
+            <td class="border-0 text-end">{{ cash_remaining }}</td>
+        </tr>
+        <!-- <tr>
+            <td class="border-0 fw-bold text-end" colspan="4">TOTAL</td>
+            <td class="border-0 w-bold text-end">{{ total }}</td>
+        </tr> -->
+    </tfoot>
+</table>
+{% endblock %}

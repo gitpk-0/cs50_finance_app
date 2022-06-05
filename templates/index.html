@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block main %}
+<header>
+    <div class="alert alert-primary mb-0 text-center" role="alert">
+        Portfolio Details
+    </div>
+</header>
+<table class="table">
+    <thead>
+        <tr>
+            <th class="text-start">Symbol</th>
+            <th class="text-start">Name</th>
+            <th class="text-end">Shares Owned</th>
+            <!-- <th class="text-end">Average Cost</th> -->
+            <th class="text-end">Current Price</th>
+            <th class="text-end">Current Value</th>
+            <!-- <th class="text-end">Profit/Loss</th> -->
+        </tr>
+    </thead>
+    <tbody>
+        {% for stock in stock_info if stock["symbol"] != "N/A" %}
+        <tr>
+            {% if stock["shares_owned"] >= 1 %}
+            <td class="text-start">{{ stock["symbol"] }}</td>
+            <td class="text-start">{{ stock["name"] }}</td>
+            <td class="text-end">{{ stock["shares_owned"] }}</td>
+            <!-- <td class="text-end">{{ usd(stock["avg_cost"]) }}</td> -->
+            <td class="text-end">{{ usd(lookup(stock["symbol"])["price"]) }}</td>
+            <td class="text-end">{{ usd(stock["shares_owned"] * lookup(stock["symbol"])["price"]) }}</td>
+            <!-- <td class="text-end">{{ usd(((lookup(stock["symbol"])["price"]) * stock["shares_owned"]) -
+                (stock["shares_owned"] * stock["avg_cost"])) }}</td> -->
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td class="border-0 fw-bold text-end" colspan="4">Cash Remaining</td>
+            <td class="border-0 text-end">{{ current_cash }}</td>
+        </tr>
+        <tr>
+            <td class="border-0 fw-bold text-end" colspan="4">TOTAL</td>
+            <td class="border-0 w-bold text-end">{{ total }} </td>
+            <!-- <td class="border-0 w-bold text-end">{{ profit_loss }} </td> -->
+        </tr>
+        <!-- <tr>
+            <td class="border-0 fw-bold text-end" colspan="4">Profit/Loss</td>
+            <td class="border-0 text-end">{{ current_cash }}</td>
+        </tr> -->
+    </tfoot>
+</table>
+{% endblock %}
