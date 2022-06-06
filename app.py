@@ -66,16 +66,17 @@ def index():
         shares = shares[0]["shares_owned"]
         print(shares)
 
-        shares_val = db.execute(
-            "SELECT sum(price * shares) as shares_val FROM transactions WHERE user_id=(?) AND shares > 0", user_id)
-        shares_val = float(shares_val[0]["shares_val"])
-        print(shares_val)
+        # shares_val = db.execute(
+        #     "SELECT sum(price * shares) as shares_val FROM transactions WHERE user_id=(?) AND shares > (?)", user_id, 0)
+        # shares_val = float(shares_val[0]["shares_val"])
+        # print(shares_val)
 
         total = current_cash
         for stock in stock_info:
             total += lookup(stock["symbol"])["price"] * stock["shares_owned"]
 
-        return render_template("index.html", stock_info=stock_info, current_cash=current_cash, total=total, usd=usd, lookup=lookup, shares=shares, shares_val=shares_val)
+        # , shares_val=shares_val)
+        return render_template("index.html", stock_info=stock_info, current_cash=current_cash, total=total, usd=usd, lookup=lookup, shares=shares)
     except:
         total = current_cash
         return render_template("index.html", stock_info=stock_info,
