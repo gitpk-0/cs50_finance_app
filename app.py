@@ -60,18 +60,18 @@ def index():
     current_cash = db.execute("SELECT cash FROM users WHERE id = (?)", user_id)[
         0]["cash"]
 
-    shares = db.execute(
-        "SELECT sum(shares) as shares_owned FROM transactions WHERE user_id = (?)", user_id)
-    shares = shares[0]["shares_owned"]
-    print(shares)
+    try:
+        shares = db.execute(
+            "SELECT sum(shares) as shares_owned FROM transactions WHERE user_id = (?)", user_id)
+        shares = shares[0]["shares_owned"]
+        print(shares)
 
-    if shares > 0:
         shares_val = db.execute(
             "SELECT sum(price * shares) as shares_val FROM transactions WHERE user_id=(?) AND shares > 0", user_id)
         shares_val = float(shares_val[0]["shares_val"])
         print(shares_val)
-    else:
-        shares_val = 0
+    except:
+        pass
 
     total = current_cash
     profit_loss = 0
