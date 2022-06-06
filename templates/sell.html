@@ -9,9 +9,9 @@ Sell
     <div class="mb-3">
         <select class="form-select mx-auto w-auto" name="symbol">
             <option disabled selected>Symbol</option>
-            {% for stock in stock_info if stock["symbol"] != "N/A" %}
-            {% if stock["shares_owned"] >= 1%}
-            <option value="{{ stock['symbol'] }}">{{ stock['symbol'] }}</option>
+            {% for stock in stock_info if stock[0] != "N/A" %}
+            {% if stock[2] >= 1 %}
+            <option value="{{ stock[0] }}">{{ stock[0] }}</option>
             {% endif %}
             {% endfor %}
         </select>
