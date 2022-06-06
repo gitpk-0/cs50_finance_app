@@ -77,6 +77,7 @@ def index():
 
         return render_template("index.html", stock_info=stock_info, current_cash=usd(current_cash), total=usd(total), usd=usd, lookup=lookup, shares=shares, shares_val=shares_val)
     except:
+        total = current_cash
         return render_template("index.html", stock_info=stock_info, current_cash=usd(current_cash), total=usd(total), usd=usd, lookup=lookup)
 
 
