@@ -175,7 +175,6 @@ def login():
 
         # Query database for username
         rows = db.execute("SELECT * FROM users WHERE username = (?)", username)
-        print(f"len(rows): {len(rows)}")
 
         # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], pw):
