@@ -70,15 +70,14 @@ def index():
             "SELECT sum(price * shares) as shares_val FROM transactions WHERE user_id=(?) AND shares > 0", user_id)
         shares_val = float(shares_val[0]["shares_val"])
         print(shares_val)
+
+        total = current_cash
+        for stock in stock_info:
+            total += lookup(stock["symbol"])["price"] * stock["shares_owned"]
+
+        return render_template("index.html", stock_info=stock_info, current_cash=usd(current_cash), total=usd(total), usd=usd, lookup=lookup, shares=shares, shares_val=shares_val)
     except:
-        pass
-
-    total = current_cash
-    profit_loss = 0
-    for stock in stock_info:
-        total += lookup(stock["symbol"])["price"] * stock["shares_owned"]
-
-    return render_template("index.html", stock_info=stock_info, current_cash=usd(current_cash), total=usd(total), usd=usd, lookup=lookup, shares=shares, shares_val=shares_val)
+        return render_template("index.html", stock_info=stock_info, current_cash=usd(current_cash), total=usd(total), usd=usd, lookup=lookup)
 
 
 @ app.route("/buy", methods=["GET", "POST"])
