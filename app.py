@@ -326,6 +326,11 @@ def sell():
             db.execute(
                 "INSERT INTO transactions(user_id, type, name, symbol, shares, price, date_time) VALUES(?,?,?,?,?,?,?)", user_id, "SELL", stock, symb, shares, price, now)
 
+            # Add the sell_total to users cash
+            updated_total = current_cash + sell_total
+            db.execute(
+                "UPDATE users SET cash = (?) WHERE id = (?)", (updated_total, user_id))
+
             return render_template("sold.html", symbol=symb, name=stock, shares=shares, price=usd(price), sell_total=usd(sell_total), cash_remaining=usd(cash_remaining))
 
 
