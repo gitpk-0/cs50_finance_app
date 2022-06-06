@@ -75,10 +75,11 @@ def index():
         for stock in stock_info:
             total += lookup(stock["symbol"])["price"] * stock["shares_owned"]
 
-        return render_template("index.html", stock_info=stock_info, current_cash=usd(current_cash), total=usd(total), usd=usd, lookup=lookup, shares=shares, shares_val=shares_val)
+        return render_template("index.html", stock_info=stock_info, current_cash=current_cash, total=total, usd=usd, lookup=lookup, shares=shares, shares_val=shares_val)
     except:
-        total = current_cash
-        return render_template("index.html", stock_info=stock_info, current_cash=usd(current_cash), total=usd(total), usd=usd, lookup=lookup)
+        total = current_
+        returnrender_template("index.html", stock_info=stock_info,
+                              current_cash=current_cash, total=total, usd=usd, lookup=lookup)
 
 
 @ app.route("/buy", methods=["GET", "POST"])
