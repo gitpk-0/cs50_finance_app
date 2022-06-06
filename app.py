@@ -62,12 +62,12 @@ def index():
 
     shares = db.execute(
         "SELECT sum(shares) as shares_owned FROM transactions WHERE user_id = (?)", user_id)
-    shares = shares[0]
+    shares = float(shares[0])
     print(shares)
 
     shares_val = db.execute(
         "SELECT sum(price * shares) as shares_val FROM transactions WHERE user_id=(?) AND shares > 0", user_id)
-    shares_val = shares_val[0]
+    shares_val = float(shares_val[0])
     print(shares_val)
 
     total = current_cash
@@ -75,7 +75,7 @@ def index():
     for stock in stock_info:
         total += lookup(stock["symbol"])["price"] * stock["shares_owned"]
 
-    return render_template("index.html", stock_info=stock_info, current_cash=usd(current_cash), total=usd(total), usd=usd, lookup=lookup, shares=shares, shares_val=shares_val)
+    return render_template("index.html", stock_info=stock_info, current_cash=usd(current_cash), total=usd(total), usd=usd, lookup=lookup, shares=shares, shares_val=usd(shares_val))
 
 
 @ app.route("/buy", methods=["GET", "POST"])
