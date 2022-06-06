@@ -68,7 +68,11 @@ def index():
 
         shares_val = db.execute(
             "SELECT sum(price * shares) as shares_val FROM transactions WHERE user_id=(?) AND shares > (?)", user_id, 0)
-        shares_val = float(shares_val[0]["shares_val"])
+
+        share_sells = db.execute(
+            "SELECT sum(price * shares) as share_sells FROM transactions WHERE user_id=(?) AND shares < (?)", user_id, 0)
+        shares_val = float(
+            shares_val[0]["shares_val"] - share_sells[0]["share_sells"])
         print(shares_val)
 
         total = current_cash
