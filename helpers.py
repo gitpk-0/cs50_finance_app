@@ -61,4 +61,8 @@ def lookup(symbol):
 
 def usd(value):
     """Format value as USD."""
-    return f"${value:,.2f}"
+    try:
+        return f"${value:,.2f}"
+    except TypeError:
+        print("helpers.py usd function error")
+        return
