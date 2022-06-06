@@ -55,7 +55,7 @@ def index():
 
     # Info for stocks the user owns
     stock_info = db.execute(
-        "SELECT symbol, name, sum(shares) as shares_owned FROM transactions WHERE user_id = ? GROUP BY symbol", user_id)
+        "SELECT symbol, name, sum(shares) as shares_owned FROM transactions WHERE user_id = ? GROUP BY symbol, name", user_id)
 
     current_cash = db.execute("SELECT cash FROM users WHERE id = ?", user_id)[
         0]["cash"]
