@@ -40,7 +40,8 @@ Home
             <td class="border-0 text-end"></td>
             {% set shares_val = 0 %}
             {% for stock in stock_info if stock["symbol"] != "N/A" %}
-            {% set shares_val += stock["shares_owned"] * lookup(stock["symbol"])["price"] %}
+            {% set current_val = stock["shares_owned"] * lookup(stock["symbol"])["price"] %}
+            {% set shares_val = shares_val + current_val %}
             {% endfor %}
             <td class="border-0 text-end">{{ usd(shares_val) }}</td>
         </tr>
