@@ -62,9 +62,13 @@ def index():
 
     shares = db.execute(
         "SELECT sum(shares) as shares_owned FROM transactions WHERE user_id = (?)", user_id)
+    shares = shares["shares_owned"]
+    print(shares)
 
     shares_val = db.execute(
         "SELECT sum(price * shares) as shares_val FROM transactions WHERE user_id=(?) AND shares > 0", user_id)
+    shares_val = shares_val["shares_val"]
+    print(shares_val)
 
     total = current_cash
     profit_loss = 0
