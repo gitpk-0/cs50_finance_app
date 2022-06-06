@@ -42,11 +42,11 @@ Home
         </tr>
         <tr>
             <td class="border-0 fw-bold text-end" colspan="4">Cash Remaining</td>
-            <td class="border-0 text-end">{{ current_cash }}</td>
+            <td class="border-0 text-end">{{ usd(current_cash) }}</td>
         </tr>
         <tr>
             <td class="border-0 fw-bold text-end" colspan="4">TOTAL</td>
-            <td class="border-0 w-bold text-end">{{ total }} </td>
+            <td class="border-0 w-bold text-end">{{ usd(total) }} </td>
         </tr>
     </tfoot>
 </table>
