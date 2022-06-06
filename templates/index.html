@@ -1,5 +1,10 @@
-{% extends "layout.html" %} {% block title %} Home {% endblock %} {% block main
-%}
+{% extends "layout.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block main %}
 <header>
     <div class="alert alert-primary mb-0 text-center" role="alert">
         Portfolio Details
@@ -20,8 +25,7 @@
         <tr>
             {% if stock[2] >= 1 %}
             <td class="text-start">{{ stock[0] }}</td>
-            <td class="text-start">{{ stock[1] }}</td>
-            <!-- name -->
+            <td class="text-start">{{ stock[1] }}</td> <!-- name -->
             <td class="text-end">{{ stock[2] }}</td>
             <td class="text-end">{{ usd(lookup(stock[0])["price"]) }}</td>
             <td class="text-end">
