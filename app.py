@@ -55,9 +55,9 @@ def index():
 
     # Info for stocks the user owns
     stock_info = db.execute(
-        "SELECT symbol, name, sum(shares) as shares_owned FROM transactions WHERE user_id = ? GROUP BY symbol, name", user_id)
+        "SELECT symbol, name, sum(shares) as shares_owned FROM transactions WHERE user_id = (?) GROUP BY symbol, name", user_id)
 
-    current_cash = db.execute("SELECT cash FROM users WHERE id = ?", user_id)[
+    current_cash = db.execute("SELECT cash FROM users WHERE id = (?)", user_id)[
         0]["cash"]
 
     total = current_cash
@@ -107,7 +107,7 @@ def buy():
     user_id = session["user_id"]
 
     # Query database for users current cash limit
-    current_cash = db.execute("SELECT cash FROM users WHERE id = ?", user_id)[
+    current_cash = db.execute("SELECT cash FROM users WHERE id = (?)", user_id)[
         0]["cash"]
 
     # Calculate cash remaining after purchase
@@ -120,7 +120,7 @@ def buy():
     # Enough cash for the purchase
     else:
         # Update the users cash amount after the purchase
-        db.execute("UPDATE users SET cash = ? WHERE id = ?",
+        db.execute("UPDATE users SET cash = (?) WHERE id = (?)",
                    cash_remaining, user_id)
         # Save purchase info in the database
         now = datetime.now()
@@ -137,7 +137,7 @@ def history():
     user_id = session["user_id"]
 
     transaction_info = db.execute(
-        "SELECT * FROM transactions WHERE user_id = ?", user_id)
+        "SELECT * FROM transactions WHERE user_id = (?)", user_id)
 
     return render_template("history.html", transaction_info=transaction_info)
 
@@ -164,7 +164,7 @@ def login():
             return apology("must provide password", 403)
 
         # Query database for username
-        rows = db.execute("SELECT * FROM users WHERE username = ?", username)
+        rows = db.execute("SELECT * FROM users WHERE username = (?)", username)
         print(f"len(rows): {len(rows)}")
 
         # Ensure username exists and password is correct
@@ -261,7 +261,7 @@ def register():
             return apology("username already taken")
 
         # Remember which user has logged in
-        rows = db.execute("SELECT * FROM users WHERE username = ?", username)
+        rows = db.execute("SELECT * FROM users WHERE username = (?)", username)
         session["user_id"] = rows[0]["id"]
 
         # Redirect new user to index page
@@ -303,7 +303,7 @@ def sell():
         symb = quote_info["symbol"]
 
         shares_owned = db.execute(
-            "SELECT SUM(shares) as shares from TRANSACTIONS WHERE user_id = ? and symbol = ?", user_id, symb)
+            "SELECT SUM(shares) as shares from TRANSACTIONS WHERE user_id = (?) and symbol = (?)", user_id, symb)
 
         # if shares > shares_owned return apology "too many shares"
         if shares > shares_owned[0]["shares"]:
@@ -317,7 +317,7 @@ def sell():
             sell_total = abs(shares * price)
 
             # Query database for users current cash limit
-            current_cash = db.execute("SELECT cash FROM users WHERE id = ?", user_id)[
+            current_cash = db.execute("SELECT cash FROM users WHERE id = (?)", user_id)[
                 0]["cash"]
 
             # Calculate cash remaining after purchase
@@ -348,7 +348,7 @@ def add_cash():
     # If method is POST
     if request.method == "POST":
         add_cash = request.form.get("add_cash")
-        db.execute("UPDATE users SET cash = cash + ? WHERE id = ?",
+        db.execute("UPDATE users SET cash = cash + (?) WHERE id = (?)",
                    add_cash, user_id)
 
         return redirect("/")
