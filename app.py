@@ -55,7 +55,7 @@ def index():
 
     # Info for stocks the user owns
     stock_info = db.execute(
-        "SELECT symbol, name, sum(shares) as shares_owned, avg(price) as avg_cost FROM transactions WHERE user_id = ? GROUP BY symbol", user_id)
+        "SELECT symbol, name, sum(shares) as shares_owned FROM transactions WHERE user_id = ? GROUP BY symbol", user_id)
 
     current_cash = db.execute("SELECT cash FROM users WHERE id = ?", user_id)[
         0]["cash"]
@@ -281,7 +281,7 @@ def sell():
 
     # Info for stocks the user owns
     stock_info = db.execute(
-        "SELECT symbol, name, sum(shares) as shares_owned, avg(price) as avg_cost FROM transactions WHERE user_id = ? GROUP BY symbol", user_id)
+        "SELECT symbol, name, sum(shares) as shares_owned FROM transactions WHERE user_id = ? GROUP BY symbol", user_id)
 
     if request.method == "GET":
         return render_template("sell.html", stock_info=stock_info)
