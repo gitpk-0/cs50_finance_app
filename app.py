@@ -64,9 +64,6 @@ def index():
     profit_loss = 0
     for stock in stock_info:
         total += lookup(stock["symbol"])["price"] * stock["shares_owned"]
-        step_one = lookup(stock["symbol"])["price"] * stock["shares_owned"]
-        step_two = stock["shares_owned"] * stock["avg_cost"]
-        profit_loss += step_one - step_two
 
     return render_template("index.html", stock_info=stock_info, current_cash=usd(current_cash), total=usd(total), usd=usd, lookup=lookup, profit_loss=usd(profit_loss))
 
