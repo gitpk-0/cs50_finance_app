@@ -38,16 +38,7 @@ Home
             <td class="border-0 fw-bold text-end" colspan="2">Total</td>
             <td class="border-0 text-end">{{ shares }}</td>
             <td class="border-0 text-end"></td>
-            {% block test scoped %}
-            {% set shares_val = 0 %}
-            {% for stock in stock_info if stock["symbol"] != "N/A" %}
-            {% if stock["shares_owned"] >= 1 %}
-            {% set current_val = stock["shares_owned"] * lookup(stock["symbol"])["price"] %}
-            {% set shares_val = shares_val + current_val %}
-            {% endif %}
-            {% endfor %}
             <td class="border-0 text-end">{{ usd(shares_val) }}</td>
-            {% endblock %}
         </tr>
         <tr>
             <td class="border-0 fw-bold text-end" colspan="4">Cash Remaining</td>
