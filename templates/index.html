@@ -21,30 +21,26 @@ Home
         </tr>
     </thead>
     <tbody>
-        {% for stock in stock_info if stock[0] != "N/A" %}
+        {% for stock in stock_info if stock["symbol"] != "N/A" %}
         <tr>
-            {% if stock[2] >= 1 %}
-            <td class="text-start">{{ stock[0] }}</td>
-            <td class="text-start">{{ stock[1] }}</td> <!-- name -->
-            <td class="text-end">{{ stock[2] }}</td>
-            <td class="text-end">{{ usd(lookup(stock[0])["price"]) }}</td>
-            <td class="text-end">
-                {{ usd(stock[2] * lookup(stock[0])["price"]) }}
-            </td>
+            {% if stock["shares_owned"] >= 1 %}
+            <td class="text-start">{{ stock["symbol"] }}</td>
+            <td class="text-start">{{ stock["name"] }}</td>
+            <td class="text-end">{{ stock["shares_owned"] }}</td>
+            <td class="text-end">{{ usd(lookup(stock["symbol"])["price"]) }}</td>
+            <td class="text-end">{{ usd(stock["shares_owned"] * lookup(stock["symbol"])["price"]) }}</td>
             {% endif %}
         </tr>
         {% endfor %}
     </tbody>
     <tfoot>
         <tr>
-            <td class="border-0 fw-bold text-end" colspan="4">
-                Cash Remaining
-            </td>
+            <td class="border-0 fw-bold text-end" colspan="4">Cash Remaining</td>
             <td class="border-0 text-end">{{ current_cash }}</td>
         </tr>
         <tr>
             <td class="border-0 fw-bold text-end" colspan="4">TOTAL</td>
-            <td class="border-0 w-bold text-end">{{ total }}</td>
+            <td class="border-0 w-bold text-end">{{ total }} </td>
         </tr>
     </tfoot>
 </table>
