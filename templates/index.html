@@ -5,53 +5,56 @@ Home
 {% endblock %}
 
 {% block main %}
-<header>
-    <!-- <div class="alert alert-primary mb-0 text-center" role="alert">
-        Portfolio Details
-    </div> -->
-    <div class="row">
-        <div class="alert alert-primary col-md-4 col-md-offset-4" align="center">
+
+<div>
+    <header>
+        <!-- <div class="alert alert-primary mb-0 text-center" role="alert">
             Portfolio Details
+        </div> -->
+        <div class="row">
+            <div class="alert alert-primary col-md-4 col-md-offset-4" align="center">
+                Portfolio Details
+            </div>
         </div>
-    </div>
-</header>
-<table class="table">
-    <thead>
-        <tr>
-            <th class="text-start">Symbol</th>
-            <th class="text-start">Name</th>
-            <th class="text-end">Shares Owned</th>
-            <th class="text-end">Current Price</th>
-            <th class="text-end">Current Value</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for stock in stock_info if stock["symbol"] != "N/A" %}
-        <tr>
-            {% if stock["shares_owned"] >= 1 %}
-            <td class="text-start">{{ stock["symbol"] }}</td>
-            <!--symbol-->
-            <td class="text-start">{{ stock["name"] }}</td>
-            <!--name-->
-            <td class="text-end">{{ stock["shares_owned"] }}</td>
-            <!--shares owned-->
-            <td class="text-end">{{ usd(lookup(stock["symbol"])["price"]) }}</td>
-            <!--current price-->
-            <td class="text-end">{{ usd(stock["shares_owned"] * lookup(stock["symbol"])["price"]) }}</td>
-            <!--current value-->
-            {% endif %}
-        </tr>
-        {% endfor %}
-    </tbody>
-    <tfoot>
-        <tr>
-            <td class="border-0 fw-bold text-end" colspan="4">Cash Remaining</td>
-            <td class="border-0 text-end">{{ usd(current_cash) }}</td>
-        </tr>
-        <tr>
-            <td class="border-0 fw-bold text-end" colspan="4">TOTAL</td>
-            <td class="border-0 w-bold text-end">{{ usd(total) }} </td>
-        </tr>
-    </tfoot>
-</table>
+    </header>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="text-start">Symbol</th>
+                <th class="text-start">Name</th>
+                <th class="text-end">Shares Owned</th>
+                <th class="text-end">Current Price</th>
+                <th class="text-end">Current Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stock in stock_info if stock["symbol"] != "N/A" %}
+            <tr>
+                {% if stock["shares_owned"] >= 1 %}
+                <td class="text-start">{{ stock["symbol"] }}</td>
+                <!--symbol-->
+                <td class="text-start">{{ stock["name"] }}</td>
+                <!--name-->
+                <td class="text-end">{{ stock["shares_owned"] }}</td>
+                <!--shares owned-->
+                <td class="text-end">{{ usd(lookup(stock["symbol"])["price"]) }}</td>
+                <!--current price-->
+                <td class="text-end">{{ usd(stock["shares_owned"] * lookup(stock["symbol"])["price"]) }}</td>
+                <!--current value-->
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td class="border-0 fw-bold text-end" colspan="4">Cash Remaining</td>
+                <td class="border-0 text-end">{{ usd(current_cash) }}</td>
+            </tr>
+            <tr>
+                <td class="border-0 fw-bold text-end" colspan="4">TOTAL</td>
+                <td class="border-0 w-bold text-end">{{ usd(total) }} </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
 {% endblock %}
