@@ -25,10 +25,15 @@ Home
         <tr>
             {% if stock["shares_owned"] >= 1 %}
             <td class="text-start">{{ stock["symbol"] }}</td>
+            <!--symbol-->
             <td class="text-start">{{ stock["name"] }}</td>
+            <!--name-->
             <td class="text-end">{{ stock["shares_owned"] }}</td>
+            <!--shares owned-->
             <td class="text-end">{{ usd(lookup(stock["symbol"])["price"]) }}</td>
+            <!--current price-->
             <td class="text-end">{{ usd(stock["shares_owned"] * lookup(stock["symbol"])["price"]) }}</td>
+            <!--current value-->
             {% endif %}
         </tr>
         {% endfor %}
